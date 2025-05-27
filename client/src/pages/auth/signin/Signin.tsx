@@ -16,7 +16,7 @@ const SignIn = () => {
 
     setLoading(true);
 
-    const request = await fetch("/api/user/sign-in", {
+    const request = await fetch("/api/auth/sign-in", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -28,14 +28,14 @@ const SignIn = () => {
     const response = await request.json();
 
     if (response.success) {
-      navigate("/");
-    } else {
-      console.log(response);
+      window.location.href = "/";
+    } else if (response.error) {
+      alert(response.error);
     }
 
     setLoading(false);
   }
-  
+
   return (
     <div className={styles.signInContainer}>
       <div className={styles.signInFormContainer}>

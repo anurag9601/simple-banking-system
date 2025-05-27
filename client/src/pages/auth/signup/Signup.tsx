@@ -27,7 +27,7 @@ const Signup = () => {
 
     setLoading(true);
 
-    const request = await fetch("/api/user/sign-up", {
+    const request = await fetch("/api/auth/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -51,36 +51,39 @@ const Signup = () => {
   };
 
   return (
-      <div className={styles.signUpContainer}>
-        <div className={styles.signUpFormContainer}>
-          <h3>Sign up</h3>
+    <div className={styles.signUpContainer}>
+      <div className={styles.signUpFormContainer}>
+        <h3>Sign up</h3>
 
-          <form
-            className={styles.manualSignupForm}
-            onSubmit={handleUserManualSignup}
-          >
-            <input type="email" placeholder="email" ref={emailRef} required />
-            <input
-              type="password"
-              placeholder="password"
-              ref={passwordRef}
-              required
-            />
-            <input
-              type="password"
-              placeholder="confirm password"
-              ref={confirmPasswordRef}
-              required
-            />
-            <button type="submit" disabled={loading}>
-              {loading === true ? <Loading /> : "Sign up"}
-            </button>
-          </form>
-          <span onClick={() => navigate("/sign-in")} className={styles.signinRedirect}>
-            Already have an account?
-          </span>
-        </div>
+        <form
+          className={styles.manualSignupForm}
+          onSubmit={handleUserManualSignup}
+        >
+          <input type="email" placeholder="email" ref={emailRef} required />
+          <input
+            type="password"
+            placeholder="password"
+            ref={passwordRef}
+            required
+          />
+          <input
+            type="password"
+            placeholder="confirm password"
+            ref={confirmPasswordRef}
+            required
+          />
+          <button type="submit" disabled={loading}>
+            {loading === true ? <Loading /> : "Sign up"}
+          </button>
+        </form>
+        <span
+          onClick={() => navigate("/sign-in")}
+          className={styles.signinRedirect}
+        >
+          Already have an account?
+        </span>
       </div>
+    </div>
   );
 };
 

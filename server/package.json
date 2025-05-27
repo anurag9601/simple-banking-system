@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"npm run start\"",
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "prisma": "6.8.2",
+    "tsc-watch": "^7.0.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@prisma/client": "6.8.2",
+    "@prisma/extension-accelerate": "^2.0.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
