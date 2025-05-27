@@ -7,12 +7,14 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_router_1 = __importDefault(require("./routers/auth.router"));
+const transaction_router_1 = __importDefault(require("./routers/transaction.router"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
 app.use("/api/auth", auth_router_1.default);
+app.use("/api/money", transaction_router_1.default);
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routers/auth.router";
+import transactionRoutes from "./routers/transaction.router";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/money", transactionRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
