@@ -1,7 +1,9 @@
 import express from "express";
-import { handleSendUserInfo, handleUserSignIn, handleUserSignOut, handleUserSignUp } from "../controllers/auth.controller";
+import { handleBankerLogin, handleSendUserInfo, handleUserSignIn, handleUserSignOut, handleUserSignUp } from "../controllers/auth.controller";
 
 const authRoutes = express.Router();
+
+authRoutes.post("/banker", handleBankerLogin);
 
 authRoutes.post("/sign-up", handleUserSignUp);
 

@@ -109,3 +109,11 @@
     font-size: 15px;
     cursor: pointer;
 }
+
+.bankerLoginBtn{
+    cursor: pointer;
+}
+
+.bankerLoginBtn:hover{
+    text-decoration: underline;
+}

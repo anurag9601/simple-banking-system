@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 export interface DataType {
     id: number,
     email: string,
-    balance: number
+    balance: number,
+    banker?: boolean
 }
 
 export function createToken(data: DataType) {

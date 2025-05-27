@@ -3,6 +3,53 @@ import { prismaClient } from "../_lib/prismaClient";
 import bcrypt from "bcrypt";
 import { createToken, DataType, verifyToken } from "../_lib/jwt";
 
+export async function handleBankerLogin(req: Request, res: Response) {
+    try {
+        const { email, password } = req.body;
+
+        if (email !== process.env.BANKER_EMAIL as string) {
+            res.status(400).json({ error: "User not found." });
+            return;
+        };
+
+        if (password !== process.env.BANKER_PASSWORD as string) {
+            res.status(400).json({ error: "Invalid email or password" });
+            return;
+        }
+
+        const user = await prismaClient.user.findUnique({
+            where: {
+                email
+            }
+        });
+
+        if (!user) {
+            res.status(400).json({ error: "User not found." });
+            return;
+        }
+
+
+        const payload = {
+            id: user.id,
+            email: user.email,
+            balance: user.balance,
+            banker: true,
+        }
+
+        const token = createToken(payload);
+
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 1000,
+        });
+
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.log(`Error in /api/auth/banker route ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
 export async function handleUserSignUp(req: Request, res: Response) {
     try {
         const { email, password } = req.body;
@@ -118,11 +165,24 @@ export async function handleSendUserInfo(req: Request, res: Response) {
             return;
         }
 
+        if (validToken.banker) {
+            res.status(200).json({
+                user: {
+                    id: validToken.id,
+                    email: validToken.email,
+                    balance: validToken.balance,
+                    banker: validToken.banker
+                }
+            });
+            return
+        }
+
         res.status(200).json({
             user: {
                 id: validToken.id,
                 email: validToken.email,
-                balance: validToken.balance
+                balance: validToken.balance,
+                banker: validToken.banker
             }
         });
     } catch (error) {

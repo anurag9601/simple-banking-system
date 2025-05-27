@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleBankerLogin = handleBankerLogin;
 exports.handleUserSignUp = handleUserSignUp;
 exports.handleUserSignIn = handleUserSignIn;
 exports.handleUserSignOut = handleUserSignOut;
@@ -19,6 +20,47 @@ exports.handleSendUserInfo = handleSendUserInfo;
 const prismaClient_1 = require("../_lib/prismaClient");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt_1 = require("../_lib/jwt");
+function handleBankerLogin(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { email, password } = req.body;
+            if (email !== process.env.BANKER_EMAIL) {
+                res.status(400).json({ error: "User not found." });
+                return;
+            }
+            ;
+            if (password !== process.env.BANKER_PASSWORD) {
+                res.status(400).json({ error: "Invalid email or password" });
+                return;
+            }
+            const user = yield prismaClient_1.prismaClient.user.findUnique({
+                where: {
+                    email
+                }
+            });
+            if (!user) {
+                res.status(400).json({ error: "User not found." });
+                return;
+            }
+            const payload = {
+                id: user.id,
+                email: user.email,
+                balance: user.balance,
+                banker: true,
+            };
+            const token = (0, jwt_1.createToken)(payload);
+            res.cookie("authToken", token, {
+                httpOnly: true,
+                maxAge: 60 * 60 * 1000,
+            });
+            res.status(200).json({ success: true });
+        }
+        catch (error) {
+            console.log(`Error in /api/auth/banker route ${error}`);
+            res.status(500).json({ error: "Internal server error" });
+        }
+    });
+}
 function handleUserSignUp(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -121,11 +163,23 @@ function handleSendUserInfo(req, res) {
                 res.status(401).json({ error: "Unauthorized token" });
                 return;
             }
+            if (validToken.banker) {
+                res.status(200).json({
+                    user: {
+                        id: validToken.id,
+                        email: validToken.email,
+                        balance: validToken.balance,
+                        banker: validToken.banker
+                    }
+                });
+                return;
+            }
             res.status(200).json({
                 user: {
                     id: validToken.id,
                     email: validToken.email,
-                    balance: validToken.balance
+                    balance: validToken.balance,
+                    banker: validToken.banker
                 }
             });
         }

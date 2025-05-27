@@ -30,6 +30,12 @@ const HomeNav: React.FC = () => {
           SBS
         </p>
       </div>
+      <p
+        className={styles.bankerLoginBtn}
+        onClick={() => navigate("/banker-login")}
+      >
+        Banker login
+      </p>
       <div className={styles.homenavRight}>
         <div className={styles.createUserOptions}>
           {!user ? (

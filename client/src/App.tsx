@@ -6,6 +6,10 @@ import SignIn from "./pages/auth/signin/Signin";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./_context/userContext";
 import Transactions from "./pages/transactions/Transactions";
+import BankerLogin from "./pages/banker-pages/bankerLogin/BankerLogin";
+import Users from "./pages/banker-pages/bankUsers/Users";
+import UserInfo from "./pages/banker-pages/userInfo/UserInfo";
+import NotFound from "./pages/notfound/NotFound";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -33,6 +37,19 @@ function App() {
         <Route path="/sign-up" element={user ? <Transactions /> : <Signup />} />
         <Route path="/sign-in" element={user ? <Transactions /> : <SignIn />} />
         <Route path="/" element={user ? <Transactions /> : <SignIn />} />
+        <Route
+          path="/banker-login"
+          element={user?.banker === true ? <Users /> : <BankerLogin />}
+        />
+        <Route
+          path="/bank/users"
+          element={user?.banker === true ? <Users /> : <BankerLogin />}
+        />
+        <Route
+          path="/user/:userId"
+          element={user?.banker === true ? <UserInfo /> : <BankerLogin />}
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

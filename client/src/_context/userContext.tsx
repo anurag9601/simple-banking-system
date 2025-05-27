@@ -10,6 +10,7 @@ export interface userDataType {
   id: number;
   email: string;
   balance: number;
+  banker?: boolean;
 }
 
 interface userContextDataType {

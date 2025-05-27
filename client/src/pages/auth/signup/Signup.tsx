@@ -40,7 +40,7 @@ const Signup = () => {
 
     response.then((e) => {
       if (e.success === true) {
-        navigate("/");
+        window.location.href = "/";
       } else {
         alert("Something went wrong");
         console.log(e);
