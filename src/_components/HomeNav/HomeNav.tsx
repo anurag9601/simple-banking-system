@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styles from "./HomeNav.module.css";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../_context/userContext";

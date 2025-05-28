@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Transactions.module.css";
 import TransactionWindow from "../../_components/TransactionWindow/TransactionWindow";
 import { UserContext } from "../../_context/userContext";
 import { TransactionContext } from "../../_context/transactionContext";
 import moment from "moment";
-import { DiVim } from "react-icons/di";
 
 const Transactions = () => {
   const { user } = useContext(UserContext);
