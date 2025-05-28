@@ -2,7 +2,6 @@ import React, { useContext, type FormEvent } from "react";
 import styles from "./BankerLogin.module.css";
 import Loading from "../../../_components/Loading/Loading";
 import { UserContext } from "../../../_context/userContext";
-import { useNavigate } from "react-router-dom";
 
 const BankerLogin = () => {
   const { user, setUser } = useContext(UserContext);
