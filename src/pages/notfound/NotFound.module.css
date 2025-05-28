@@ -1,0 +1,18 @@
+.notFoundContainer{
+    flex: 1;
+    background-color: var(--page-background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.redirectText{
+    color: #fff;
+    cursor: pointer;
+}
+
+.redirectText:hover{
+    text-decoration: underline;
+}

@@ -1,0 +1,62 @@
+.transectionContainer{
+    flex: 1;
+    background-color: var(--page-background-color);
+    font-family: "Nunito", sans-serif;
+}
+
+.userInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 10%;
+}
+
+.userName{
+    font-size: x-large;
+    color: var(--font-color);
+    font-weight: 600;
+}
+
+.userBalance{
+    font-size: large;
+    color: var(--title-font-color);
+    font-weight: 600;
+}
+
+.transactionList{
+    padding: 20px 5%;
+}
+
+.transactionList li{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-top: 1px solid var(--background-color);
+    padding: 10px 0;
+}
+
+.transactionList li p{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.transactionTime{
+    color: var(--title-font-color);
+}
+
+.noTransactionMessage{
+    font-size: 30px;
+    color: var(--title-font-color);
+}
+
+@media (max-width: 840px){
+    .userInfo{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
